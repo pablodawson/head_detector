@@ -3,7 +3,6 @@ torchvision
 huggingface_hub
 Pillow
 smplx
-git+https://github.com/mattloper/chumpy
 scipy==1.10.0
 einops==0.8.0
 Cython==0.29.32
