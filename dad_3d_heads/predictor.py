@@ -68,7 +68,9 @@ class FaceMeshPredictor:
     def __init__(self, config: Dict[str, Any], cuda_id: int = 0):
         self.cuda_id = cuda_id
         self.flame_constants = config["constants"]
-        self.model = torch.jit.load(os.path.join(os.path.expanduser('~'), config["model_path"]))
+        model_path = os.path.join(os.path.expanduser('~'), config["model_path"])
+        device = torch.device(f"cuda:{cuda_id}" if torch.cuda.is_available() else "cpu")
+        self.model = torch.jit.load(model_path, map_location=device)
         self.model = to_device(self.model, self.cuda_id).eval()
         self.head_mesh = HeadMesh(self.flame_constants)
         self._img_size = config["img_size"]

@@ -24,7 +24,7 @@ class HeadDetector:
 
     def _read_model(self, model: str) -> torch.jit.ScriptModule:
         model_path = hf_hub_download(REPO_ID, f"{model}.trcd")
-        loaded_model = torch.jit.load(model_path)
+        loaded_model = torch.jit.load(model_path, map_location=self._device)
         loaded_model.to(self._device)
         loaded_model.eval()
         return loaded_model
